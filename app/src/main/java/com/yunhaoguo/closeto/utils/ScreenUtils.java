@@ -11,8 +11,6 @@ package com.yunhaoguo.closeto.utils;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -25,7 +23,6 @@ public class ScreenUtils {
      * 得到屏幕宽高
      * @param context
      */
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void init(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
