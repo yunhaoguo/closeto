@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="做一个你喜欢的应用——by 云皓"
+        android:padding="5dp"
         android:textStyle="italic"
         android:layout_below="@id/iv_title"/>
     <TextView
