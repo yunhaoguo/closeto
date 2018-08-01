@@ -1,10 +1,11 @@
 package com.yunhaoguo.closeto;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.yunhaoguo.closeto.base.BasePermissionActivity;
+
+public class MainActivity extends BasePermissionActivity {
 
     private TextView tv;
 
@@ -18,4 +19,5 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         tv = (TextView) findViewById(R.id.tv);
     }
+
 }
