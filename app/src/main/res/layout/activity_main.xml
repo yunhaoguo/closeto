@@ -14,15 +14,17 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb_title"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
         <!--主视图-->
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/fl_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
     <!--侧边栏-->

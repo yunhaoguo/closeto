@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_main_scan"
+        android:title="扫一扫"
+        />
+    <item
+        android:id="@+id/menu_main_website"
+        android:title="官网"
+        />
+    <item
+        android:id="@+id/menu_main_share"
+        android:title="分享"
+        />
+    <item
+        android:id="@+id/menu_main_settings"
+        android:title="设置"
+        />
+</menu>

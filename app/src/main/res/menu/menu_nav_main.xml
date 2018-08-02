@@ -3,7 +3,8 @@
     <group android:checkableBehavior="single">
         <item android:title="主页"
             android:icon="@mipmap/ic_launcher"
-            android:id="@+id/menu_nav_home"/>
+            android:id="@+id/menu_nav_home"
+            android:checked="true"/>
         <item android:title="壁纸"
             android:icon="@mipmap/ic_launcher"
             android:id="@+id/menu_nav_wallpaper"/>
