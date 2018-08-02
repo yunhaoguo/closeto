@@ -40,7 +40,9 @@ public class BasePermissionActivity extends AppCompatActivity {
                 }
             }
             String[] newPermissions = unPermittedList.toArray(new String[unPermittedList.size()]);
-            ActivityCompat.requestPermissions(this, newPermissions, requestCode);
+            if (newPermissions.length != 0) {
+                ActivityCompat.requestPermissions(this, newPermissions, requestCode);
+            }
         }
     }
 
