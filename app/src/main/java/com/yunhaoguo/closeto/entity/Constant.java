@@ -13,4 +13,7 @@ public class Constant {
 
     //闪屏页跳转到主页的handler所需的code
     public static final int SPLASH_DELAY_CODE = 1001;
+
+    //主页中精选接口
+    public static final String HOME_SELECT_URL = "http://v3.wufazhuce.com:8000/api/hp/more/0";
 }
