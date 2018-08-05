@@ -9,8 +9,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yunhaoguo.closeto.R;
 import com.yunhaoguo.closeto.base.BasePagerAdapter;
 import com.yunhaoguo.closeto.entity.Constant;
@@ -106,12 +108,15 @@ public class HomeSelectFragment extends Fragment {
                 String title = model.getTitle();
                 String author = model.getAuthor();
                 String content = model.getContent();
+                String picUrl = model.getImgUrl();
                 TextView tvTitle = view.findViewById(R.id.tv_select_item_title);
                 TextView tvAuthor = view.findViewById(R.id.tv_select_item_author);
                 TextView tvContent = view.findViewById(R.id.tv_select_item_content);
+                ImageView ivPic = view.findViewById(R.id.iv_select_item_pic);
                 tvTitle.setText(title);
                 tvAuthor.setText(author);
                 tvContent.setText(content);
+                Glide.with(this).load(picUrl).into(ivPic);
                 pagerList.add(view);
             }
             vpHomeSelect.setAdapter(new BasePagerAdapter(pagerList));
