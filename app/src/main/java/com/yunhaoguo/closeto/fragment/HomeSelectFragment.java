@@ -5,17 +5,26 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.yunhaoguo.closeto.R;
+import com.yunhaoguo.closeto.base.BasePagerAdapter;
 import com.yunhaoguo.closeto.entity.Constant;
+import com.yunhaoguo.closeto.model.SelectModel;
 import com.yunhaoguo.closeto.utils.LogUtils;
 import com.yunhaoguo.closeto.utils.OkHttpUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /*
@@ -33,8 +42,12 @@ public class HomeSelectFragment extends Fragment {
 
     public static final String TAG = "HomeSelectFragment";
 
-    private ViewPager vp_home_select;
+    private ViewPager vpHomeSelect;
 
+    private List<SelectModel> selectModelList;
+    private List<View> pagerList;
+
+    private TextView tvCurrentIndex;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +69,9 @@ public class HomeSelectFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), json, Toast.LENGTH_LONG).show();
+                        if (!TextUtils.isEmpty(json)) {
+                            initViewPagerData(json);
+                        }
                     }
                 });
             }
@@ -68,7 +83,66 @@ public class HomeSelectFragment extends Fragment {
         });
     }
 
+    private void initViewPagerData(String json) {
+        selectModelList = new ArrayList<>();
+        try {
+            JSONObject jsonContent = new JSONObject(json);
+            JSONArray dataArr = jsonContent.getJSONArray("data");
+            for (int i = 0; i < dataArr.length(); i++) {
+                JSONObject data = (JSONObject) dataArr.get(i);
+                SelectModel selectModel = new SelectModel();
+                selectModel.setTitle(data.getString("hp_title"));
+                selectModel.setAuthor(data.getString("hp_author"));
+                selectModel.setContent(data.getString("hp_content"));
+                selectModel.setImgUrl(data.getString("hp_img_url"));
+                selectModel.setLastUpdateTime(data.getString("last_update_date"));
+                selectModel.setWebUrl(data.getString("web_url"));
+                selectModelList.add(selectModel);
+            }
+            pagerList = new ArrayList<>();
+            for (int i = 0; i < selectModelList.size(); i++) {
+                View view = View.inflate(getActivity(), R.layout.layout_home_select_item, null);
+                SelectModel model = selectModelList.get(i);
+                String title = model.getTitle();
+                String author = model.getAuthor();
+                String content = model.getContent();
+                TextView tvTitle = view.findViewById(R.id.tv_select_item_title);
+                TextView tvAuthor = view.findViewById(R.id.tv_select_item_author);
+                TextView tvContent = view.findViewById(R.id.tv_select_item_content);
+                tvTitle.setText(title);
+                tvAuthor.setText(author);
+                tvContent.setText(content);
+                pagerList.add(view);
+            }
+            vpHomeSelect.setAdapter(new BasePagerAdapter(pagerList));
+
+            tvCurrentIndex.setText("1/" + pagerList.size());
+            vpHomeSelect.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    tvCurrentIndex.setText((position + 1) + "/" + pagerList.size());
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     private void initView(View view) {
-        vp_home_select = view.findViewById(R.id.vp_home_select);
+        vpHomeSelect = view.findViewById(R.id.vp_home_select);
+        tvCurrentIndex = view.findViewById(R.id.tv_select_curindex);
     }
 }
