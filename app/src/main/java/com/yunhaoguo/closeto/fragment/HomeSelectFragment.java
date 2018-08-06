@@ -1,5 +1,6 @@
 package com.yunhaoguo.closeto.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.yunhaoguo.closeto.R;
 import com.yunhaoguo.closeto.base.BasePagerAdapter;
 import com.yunhaoguo.closeto.entity.Constant;
 import com.yunhaoguo.closeto.model.SelectModel;
+import com.yunhaoguo.closeto.ui.WebViewActivity;
 import com.yunhaoguo.closeto.utils.LogUtils;
 import com.yunhaoguo.closeto.utils.OkHttpUtils;
 
@@ -59,6 +61,7 @@ public class HomeSelectFragment extends Fragment {
         return view;
     }
 
+    //从网络获取精选内容
     private void initData() {
         OkHttpUtils.get(Constant.HOME_SELECT_URL, new OkHttpUtils.OnOkHttpCallback() {
             @Override
@@ -104,7 +107,7 @@ public class HomeSelectFragment extends Fragment {
             pagerList = new ArrayList<>();
             for (int i = 0; i < selectModelList.size(); i++) {
                 View view = View.inflate(getActivity(), R.layout.layout_home_select_item, null);
-                SelectModel model = selectModelList.get(i);
+                final SelectModel model = selectModelList.get(i);
                 String title = model.getTitle();
                 String author = model.getAuthor();
                 String content = model.getContent();
@@ -116,8 +119,17 @@ public class HomeSelectFragment extends Fragment {
                 tvTitle.setText(title);
                 tvAuthor.setText(author);
                 tvContent.setText(content);
+                //使用Glide框架加载图片
                 Glide.with(this).load(picUrl).into(ivPic);
                 pagerList.add(view);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                        intent.putExtra("url", model.getWebUrl());
+                        startActivity(intent);
+                    }
+                });
             }
             vpHomeSelect.setAdapter(new BasePagerAdapter(pagerList));
 

@@ -23,7 +23,7 @@ import okhttp3.Response;
 
 public class OkHttpUtils {
 
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public static void get(String url, final OnOkHttpCallback callback) {
 

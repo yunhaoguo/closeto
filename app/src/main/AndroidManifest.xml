@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yunhaoguo.closeto">
 
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <!--网络权限添加-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 网络权限添加 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".base.BaseApplication"
@@ -17,26 +17,33 @@
         android:theme="@style/AppTheme">
 
         <!-- 闪屏页 -->
-        <activity android:name=".ui.SplashActivity"
+        <activity
+            android:name=".ui.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <!-- 主页 -->
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
-        <!--引导页-->
-        <activity android:name=".ui.GuideActivity"
+        <!-- 引导页 -->
+        <activity
+            android:name=".ui.GuideActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+
+        <!--精选内容详情页-->
+        <activity android:name=".ui.WebViewActivity"
+            android:theme="@style/AppTheme">
 
         </activity>
     </application>
