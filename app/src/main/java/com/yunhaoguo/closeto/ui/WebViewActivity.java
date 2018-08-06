@@ -53,7 +53,8 @@ public class WebViewActivity extends BaseActivity {
 
         //支持屏幕缩放
         webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true);
+        //添加会crash，暂时去掉
+        //webSettings.setBuiltInZoomControls(true);
     }
 
     //WebViewClient主要帮助WebView处理各种通知、请求事件

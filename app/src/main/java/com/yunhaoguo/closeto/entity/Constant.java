@@ -16,4 +16,10 @@ public class Constant {
 
     //主页中精选接口
     public static final String HOME_SELECT_URL = "http://v3.wufazhuce.com:8000/api/hp/more/0";
+
+    //音乐列表
+    public static final String HOME_MUSIC_LIST_URL = "http://v3.wufazhuce.com:8000/api/music/idlist/0";
+
+    //歌曲详情 后面需要加上歌曲id
+    public static final String HOME_MUSIC_MORE_URL = "http://v3.wufazhuce.com:8000/api/music/detail/";
 }
