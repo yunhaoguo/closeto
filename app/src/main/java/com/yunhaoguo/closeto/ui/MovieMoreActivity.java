@@ -14,8 +14,10 @@ import com.yunhaoguo.closeto.base.BaseActivity;
 import com.yunhaoguo.closeto.model.MovieModel;
 import com.yunhaoguo.closeto.utils.LogUtils;
 import com.yunhaoguo.closeto.utils.OkHttpUtils;
+import com.yunhaoguo.closeto.view.AutoViewPager;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MovieMoreActivity extends BaseActivity implements View.OnClickListener {
 
@@ -29,6 +31,11 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
     private TextView tvMovieMoreHistory;
     private ImageView ivMovieMorePoster;
     private TextView tvMovieMoreTitle;
+    private TextView tvMovieMoreOrigin;
+
+    private AutoViewPager avpMovieMore;
+
+    private MovieModel movie;
 
 
     @Override
@@ -51,6 +58,12 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
         ivMovieMorePoster = findViewById(R.id.iv_movie_more_poster);
         ivMovieMorePoster.setOnClickListener(this);
         tvMovieMoreTitle = findViewById(R.id.tv_movie_more_title);
+
+        avpMovieMore = findViewById(R.id.avp_movie_more);
+        avpMovieMore.start();
+
+        tvMovieMoreOrigin = findViewById(R.id.tv_movie_more_origin);
+        tvMovieMoreOrigin.setOnClickListener(this);
     }
 
     private void initData() {
@@ -85,7 +98,7 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void parseJson(String json) {
-        final MovieModel movie = new Gson().fromJson(json, MovieModel.class);
+        movie = new Gson().fromJson(json, MovieModel.class);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -100,14 +113,30 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
                 tvMovieMoreInfo.setText(movie.getData().getInfo());
                 tvMovieMoreHistory.setText(movie.getData().getOfficialstory());
                 tvMovieMoreTitle.setText(movie.getData().getTitle());
+                addAutoView(movie.getData().getPhoto());
             }
         });
 
 
     }
 
+    private void addAutoView(List<String> photoUrls) {
+        for (String url : photoUrls) {
+            View view = View.inflate(this, R.layout.layout_auto_view_pager_item, null);
+            ImageView ivPic = view.findViewById(R.id.iv_auto_view_pager_pic);
+            Glide.with(this).load(url).into(ivPic);
+            avpMovieMore.setView(view);
+        }
+
+    }
+
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.tv_movie_more_origin:
+                Intent intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra("url", movie.getData().getWeb_url());
+                startActivity(intent);
+        }
     }
 }
