@@ -47,17 +47,16 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         String title = musicBeanList.get(position).getTitle();
         String picUrl = musicBeanList.get(position).getPicUrl();
         holder.tvTitle.setText(title);
         Glide.with(context).load(picUrl).into(holder.ivPic);
-
         if (listener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemClick(position);
+                    listener.onItemClick(holder.getAdapterPosition());
                 }
             });
         }

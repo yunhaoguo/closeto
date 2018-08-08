@@ -22,4 +22,10 @@ public class Constant {
 
     //歌曲详情 后面需要加上歌曲id
     public static final String HOME_MUSIC_MORE_URL = "http://v3.wufazhuce.com:8000/api/music/detail/";
+
+    //电影列表
+    public static final String HOME_MOVIE_LIST_URL = "http://v3.wufazhuce.com:8000/api/channel/movie/more/0?channel=wdj&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android";
+
+    //电影详情 111处为电影id
+    //public static final String HOME_MOIVE_MORE_URL = "http://v3.wufazhuce.com:8000/api/movie/detail/111/?channel=wdj&source=channel_movie&source_id=9240&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android";
 }

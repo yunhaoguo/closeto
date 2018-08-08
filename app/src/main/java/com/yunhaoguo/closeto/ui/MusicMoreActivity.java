@@ -76,6 +76,7 @@ public class MusicMoreActivity extends BaseActivity implements View.OnClickListe
                 tvStoryContent.setText(Html.fromHtml(musicModel.getData().getStory()));
                 tvLyric.setText(musicModel.getData().getLyric());
                 tvInfo.setText(musicModel.getData().getInfo());
+                tvToOriPage.setVisibility(View.VISIBLE);
             }
         });
 

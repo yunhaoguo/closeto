@@ -30,18 +30,19 @@
         <!-- 主页 -->
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 引导页 -->
         <activity
             android:name=".ui.GuideActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- 精选内容详情页 -->
         <activity
             android:name=".ui.WebViewActivity"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".ui.MusicMoreActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.MusicMoreActivity" />
+        <activity android:name=".ui.MovieMoreActivity"></activity>
     </application>
 
 </manifest>
