@@ -10,9 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.yunhaoguo.closeto.base.BasePagerAdapter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -32,7 +29,7 @@ public class AutoViewPager extends ViewPager {
     //轮播间隔时间
     private int interval = 3000;
 
-    private List<View> viewList = new ArrayList<>();
+    private List<View> viewList;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -69,13 +66,12 @@ public class AutoViewPager extends ViewPager {
         super(context, attrs);
     }
 
-
-    public void setView(View view) {
-        viewList.add(view);
-        setAdapter(new BasePagerAdapter(viewList));
-    }
-
     public void start() {
         handler.sendEmptyMessage(AUTO_CODE);
     }
+
+    public void setViewList(@NonNull List<View> viewList) {
+        this.viewList = viewList;
+    }
+
 }

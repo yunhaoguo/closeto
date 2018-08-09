@@ -67,7 +67,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
                 android:textSize="18sp"
-                android:text="观看视频介绍"
+                android:text="@string/read_origin_web"
+                android:visibility="invisible"
                 android:layout_marginBottom="5dp"/>
         </LinearLayout>
 

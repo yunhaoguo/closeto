@@ -1,23 +1,32 @@
 package com.yunhaoguo.closeto.ui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 import com.yunhaoguo.closeto.R;
 import com.yunhaoguo.closeto.base.BaseActivity;
+import com.yunhaoguo.closeto.base.BasePagerAdapter;
 import com.yunhaoguo.closeto.model.MovieModel;
 import com.yunhaoguo.closeto.utils.LogUtils;
 import com.yunhaoguo.closeto.utils.OkHttpUtils;
 import com.yunhaoguo.closeto.view.AutoViewPager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MovieMoreActivity extends BaseActivity implements View.OnClickListener {
 
@@ -36,6 +45,10 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
     private AutoViewPager avpMovieMore;
 
     private MovieModel movie;
+
+    //图片下载计数器
+    private AtomicInteger count = new AtomicInteger(0);
+    private List<View> viewList = new ArrayList<>();
 
 
     @Override
@@ -60,7 +73,7 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
         tvMovieMoreTitle = findViewById(R.id.tv_movie_more_title);
 
         avpMovieMore = findViewById(R.id.avp_movie_more);
-        avpMovieMore.start();
+
 
         tvMovieMoreOrigin = findViewById(R.id.tv_movie_more_origin);
         tvMovieMoreOrigin.setOnClickListener(this);
@@ -69,7 +82,10 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
     private void initData() {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
-        getSupportActionBar().setTitle(title);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
+        }
         String id = intent.getStringExtra("id");
         String url = "http://v3.wufazhuce.com:8000/api/movie/detail/" + id
                 + "/?channel=wdj&source=channel_movie&source_id=9240&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android";
@@ -120,12 +136,27 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-    private void addAutoView(List<String> photoUrls) {
+    //下载并添加轮播图
+    private void addAutoView(final List<String> photoUrls) {
         for (String url : photoUrls) {
-            View view = View.inflate(this, R.layout.layout_auto_view_pager_item, null);
-            ImageView ivPic = view.findViewById(R.id.iv_auto_view_pager_pic);
-            Glide.with(this).load(url).into(ivPic);
-            avpMovieMore.setView(view);
+            final View view = View.inflate(this, R.layout.layout_auto_view_pager_item, null);
+            final ImageView ivPic = view.findViewById(R.id.iv_auto_view_pager_pic);
+            Glide.with(this).load(url).into(new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    count.getAndAdd(1);
+                    ivPic.setImageDrawable(resource);
+                    viewList.add(view);
+                    if (count.get() == photoUrls.size()) {
+                        avpMovieMore.setViewList(viewList);
+                        avpMovieMore.setAdapter(new BasePagerAdapter(viewList));
+                        avpMovieMore.start();
+                    }
+                    //把打开原始网页的文字链接显示出来
+                    tvMovieMoreOrigin.setVisibility(View.VISIBLE);
+                }
+            });
+
         }
 
     }
@@ -137,6 +168,7 @@ public class MovieMoreActivity extends BaseActivity implements View.OnClickListe
                 Intent intent = new Intent(this, WebViewActivity.class);
                 intent.putExtra("url", movie.getData().getWeb_url());
                 startActivity(intent);
+                break;
         }
     }
 }

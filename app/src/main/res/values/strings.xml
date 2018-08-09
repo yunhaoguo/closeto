@@ -3,4 +3,5 @@
 
     <string name="openDrawerContentDescRes">openDrawerContentDescRes</string>
     <string name="closeDrawerContentDescRes">closeDrawerContentDescRes</string>
+    <string name="read_origin_web">点击查看原文</string>
 </resources>
