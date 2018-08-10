@@ -47,6 +47,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     }
 
     @Override
+    public int getItemCount() {
+        return musicBeanList.size();
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         String title = musicBeanList.get(position).getTitle();
         String picUrl = musicBeanList.get(position).getPicUrl();
@@ -62,9 +67,13 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return musicBeanList.size();
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -77,11 +86,4 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
 }

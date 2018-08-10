@@ -28,4 +28,10 @@ public class Constant {
 
     //电影详情 111处为电影id
     //public static final String HOME_MOIVE_MORE_URL = "http://v3.wufazhuce.com:8000/api/movie/detail/111/?channel=wdj&source=channel_movie&source_id=9240&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android";
+
+    //天气BaseUrl
+    public static final String WEATHER_BASE_URL = "https://free-api.heweather.com/";
+
+    //和风天气key
+    public static final String WEATHER_KEY = "996a2aec4bf34ea2a300a8cf58a35d30";
 }

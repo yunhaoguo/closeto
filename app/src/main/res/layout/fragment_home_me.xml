@@ -1,12 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
-
-    <TextView
-        android:layout_width="wrap_content"
+    android:padding="5dp">
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="50sp"
-        android:text="Home-我的"/>
+        android:fillViewport="true">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/wheat">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/civ_home_me_image"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="@color/white" />
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/tv_home_me_name"
+                    android:layout_below="@id/civ_home_me_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="郭大哥"/>
+                <TextView
+                    android:id="@+id/tv_home_me_desc"
+                    android:layout_below="@id/tv_home_me_name"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="初入IT行业的小菜鸟"/>
+            </RelativeLayout>
+
+            <!--天气-->
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="5dp"
+                android:id="@+id/cv_home_me_weather"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/iv_home_me_nowweather_pic"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/sunny"/>
+                    <ImageView
+                        android:id="@+id/iv_home_me_nowweather_pic2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/sunny"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+                        <Spinner
+                            android:gravity="center"
+                            android:id="@+id/spinner_city_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+
+                        </Spinner>
+                        <TextView
+                            android:id="@+id/tv_home_me_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="城市"
+                            android:gravity="center" />
+                        <TextView
+                            android:id="@+id/tv_home_me_weather"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="天气"
+                            android:gravity="center"/>
+                        <TextView
+                            android:id="@+id/tv_home_me_degree"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="温度"
+                            android:gravity="center"/>
+                        <TextView
+                            android:id="@+id/tv_home_me_update"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="最后更新时间"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <!--注意信息-->
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="5dp"
+                android:id="@+id/rv_home_me_info"
+                android:layout_width="match_parent"
+                android:layout_height="500dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>
