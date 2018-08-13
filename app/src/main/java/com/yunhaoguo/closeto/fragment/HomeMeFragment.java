@@ -1,5 +1,6 @@
 package com.yunhaoguo.closeto.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.yunhaoguo.closeto.entity.Constant;
 import com.yunhaoguo.closeto.impl.WeatherApi;
 import com.yunhaoguo.closeto.model.LifestyleModel;
 import com.yunhaoguo.closeto.model.WeatherNowModel;
+import com.yunhaoguo.closeto.ui.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,6 +153,14 @@ public class HomeMeFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        civHomeMeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
             }
         });
 

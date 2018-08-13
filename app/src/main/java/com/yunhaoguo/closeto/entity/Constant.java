@@ -34,4 +34,6 @@ public class Constant {
 
     //和风天气key
     public static final String WEATHER_KEY = "996a2aec4bf34ea2a300a8cf58a35d30";
+
+    public static final String DB_USER_ACCOUNT = "account.db";
 }

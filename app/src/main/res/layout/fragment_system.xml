@@ -2,12 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
+    <ProgressBar
+        android:layout_marginTop="5dp"
+        android:id="@+id/pb_system_battery"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_system_battery_info"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="System"
-        android:textSize="50sp"/>
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_system_battery_health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

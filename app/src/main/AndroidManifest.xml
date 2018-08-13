@@ -6,6 +6,7 @@
 
     <!-- 网络权限添加 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
 
     <application
         android:name=".base.BaseApplication"
@@ -42,7 +43,9 @@
             android:name=".ui.WebViewActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".ui.MusicMoreActivity" />
-        <activity android:name=".ui.MovieMoreActivity"></activity>
+        <activity android:name=".ui.MovieMoreActivity" />
+        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.RegisterActivity"></activity>
     </application>
 
 </manifest>
