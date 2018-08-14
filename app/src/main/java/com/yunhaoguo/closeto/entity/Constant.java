@@ -35,5 +35,9 @@ public class Constant {
     //和风天气key
     public static final String WEATHER_KEY = "996a2aec4bf34ea2a300a8cf58a35d30";
 
+    //用户账户数据库名
     public static final String DB_USER_ACCOUNT = "account.db";
+
+    //壁纸接口 接口失效
+    //public static final String WALLPAPER_URL = "http://open.lovebizhi.com/baidu_rom.php?width=720&height=1280&type=1";
 }
