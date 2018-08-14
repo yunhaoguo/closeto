@@ -46,7 +46,8 @@
         <activity android:name=".ui.MovieMoreActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.AppInfoActivity"></activity>
+        <activity android:name=".ui.AppInfoActivity" />
+        <activity android:name=".ui.ScreenCheckActivity" />
     </application>
 
 </manifest>

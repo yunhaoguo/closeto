@@ -12,10 +12,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yunhaoguo.closeto.R;
+import com.yunhaoguo.closeto.ui.ScreenCheckActivity;
 
 /*
  * 项目名:     CloseTo
@@ -27,7 +29,9 @@ import com.yunhaoguo.closeto.R;
  */
 
 
-public class SystemFragment extends Fragment {
+public class SystemFragment extends Fragment implements View.OnClickListener {
+
+    private LinearLayout llScreenCheck;
 
     private BatteryInfoReceiver receiver;
 
@@ -48,6 +52,9 @@ public class SystemFragment extends Fragment {
 
         tvBatteryInfo = view.findViewById(R.id.tv_system_battery_info);
         tvBatteryHealth = view.findViewById(R.id.tv_system_battery_health);
+
+        llScreenCheck = view.findViewById(R.id.ll_screen_check);
+        llScreenCheck.setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +69,16 @@ public class SystemFragment extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_screen_check:
+                Intent intent = new Intent(getActivity(), ScreenCheckActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     class BatteryInfoReceiver extends BroadcastReceiver {
