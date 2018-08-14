@@ -1,6 +1,10 @@
 package com.yunhaoguo.closeto.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +24,7 @@ import com.yunhaoguo.closeto.R;
 import com.yunhaoguo.closeto.adapter.AppListAdapter;
 import com.yunhaoguo.closeto.manager.AppManager;
 import com.yunhaoguo.closeto.model.AppModel;
+import com.yunhaoguo.closeto.ui.AppInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +58,7 @@ public class AppFragment extends Fragment {
 
     private static final String[] tabTitles = {"已安装", "系统应用", "全部应用"};
 
+    private AppReceiver receiver;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -143,6 +150,16 @@ public class AppFragment extends Fragment {
         rvApp.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new AppListAdapter(getActivity(), mList);
         rvApp.setAdapter(adapter);
+        adapter.setOnItemClickListener(new AppListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                AppModel model = mList.get(position);
+                Intent intent = new Intent(getActivity(), AppInfoActivity.class);
+                intent.putExtra("app_name", model.getAppName());
+                intent.putExtra("package_name", model.getPackageName());
+                getActivity().startActivity(intent);
+            }
+        });
 
         //获取APPList数据
         handler.sendEmptyMessage(GET_DATA_CODE);
@@ -155,7 +172,38 @@ public class AppFragment extends Fragment {
                 handler.sendEmptyMessageDelayed(GET_DATA_CODE, DELAY);
             }
         });
+
+        initReceiver();
     }
 
+    private void initReceiver() {
+        receiver = new AppReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        filter.addDataScheme("package");
+        getActivity().registerReceiver(receiver, filter);
+    }
 
+    class AppReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (!TextUtils.isEmpty(action)) {
+                if (action.equals(Intent.ACTION_PACKAGE_ADDED) ||
+                        action.equals(Intent.ACTION_PACKAGE_REMOVED)) {
+                    handler.sendEmptyMessage(GET_DATA_CODE);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (receiver != null) {
+            getActivity().unregisterReceiver(receiver);
+        }
+    }
 }

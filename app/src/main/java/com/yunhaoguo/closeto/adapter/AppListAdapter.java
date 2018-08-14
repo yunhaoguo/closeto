@@ -30,6 +30,8 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
     private LayoutInflater inflater;
     private List<AppModel> appModelList;
 
+    private OnItemClickListener listener;
+
     public AppListAdapter(Context context, List<AppModel> appModelList) {
         this.context = context;
         this.appModelList = appModelList;
@@ -45,12 +47,19 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         AppModel appModel = appModelList.get(position);
         holder.ivAppIcon.setImageDrawable(appModel.getIcon());
         holder.tvAppName.setText(appModel.getAppName());
         holder.tvAppPackage.setText(appModel.getPackageName());
         holder.tvAppSize.setText(appModel.getAppSize());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -58,7 +67,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         return appModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView ivAppIcon;
         private TextView tvAppName;
@@ -72,5 +81,13 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             tvAppPackage = itemView.findViewById(R.id.tv_app_item_package);
             tvAppSize = itemView.findViewById(R.id.tv_app_item_size);
         }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

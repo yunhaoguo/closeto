@@ -34,10 +34,10 @@ public class AppManager {
 
     private AppManager(Context context) {
         this.context = context;
-        initAppManage();
+        initAppManager();
     }
 
-    private void initAppManage() {
+    private void initAppManager() {
         pm = context.getPackageManager();
         packageInfoList = pm.getInstalledPackages(0);
     }
@@ -129,7 +129,7 @@ public class AppManager {
      */
     public String[] getAppPermissions(String packageName) {
         try {
-            PackageInfo info = pm.getPackageInfo(packageName, 0);
+            PackageInfo info = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
             return info.requestedPermissions;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
