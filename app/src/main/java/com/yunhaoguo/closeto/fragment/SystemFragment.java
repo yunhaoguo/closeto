@@ -1,10 +1,6 @@
 package com.yunhaoguo.closeto.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +15,7 @@ import android.widget.TextView;
 import com.yunhaoguo.closeto.R;
 import com.yunhaoguo.closeto.ui.FileBrowseActivity;
 import com.yunhaoguo.closeto.ui.ScreenCheckActivity;
+import com.yunhaoguo.closeto.ui.SystemInfoActivity;
 
 /*
  * 项目名:     CloseTo
@@ -34,8 +31,8 @@ public class SystemFragment extends Fragment implements View.OnClickListener {
 
     private LinearLayout llScreenCheck;
     private LinearLayout llFileManage;
+    private LinearLayout llSystemInfo;
 
-    private BatteryInfoReceiver receiver;
 
     private ProgressBar pbBattery;
     private TextView tvBatteryInfo;
@@ -60,20 +57,19 @@ public class SystemFragment extends Fragment implements View.OnClickListener {
 
         llFileManage = view.findViewById(R.id.ll_file_manage);
         llFileManage.setOnClickListener(this);
+
+        llSystemInfo = view.findViewById(R.id.ll_system_info);
+        llSystemInfo.setOnClickListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        receiver = new BatteryInfoReceiver();
-        getActivity().registerReceiver(receiver, filter);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(receiver);
     }
 
     @Override
@@ -86,42 +82,13 @@ public class SystemFragment extends Fragment implements View.OnClickListener {
             case R.id.ll_file_manage:
                 intent.setClass(getActivity(), FileBrowseActivity.class);
                 break;
+            case R.id.ll_system_info:
+                intent.setClass(getActivity(), SystemInfoActivity.class);
         }
         startActivity(intent);
     }
 
-    class BatteryInfoReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            loadBatteryStatus(intent);
 
 
 
-
-        }
-    }
-
-    //加载电池状态
-    private void loadBatteryStatus(Intent intent) {
-        int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-        int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, BatteryManager.BATTERY_STATUS_DISCHARGING);
-        int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, BatteryManager.BATTERY_HEALTH_GOOD);
-        if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
-            tvBatteryInfo.setText("充电中");
-        } else {
-            tvBatteryInfo.setText("未充电");
-        }
-        if (health == BatteryManager.BATTERY_HEALTH_GOOD) {
-            tvBatteryHealth.setText("电池状态良好");
-        } else if (health == BatteryManager.BATTERY_HEALTH_OVERHEAT) {
-            tvBatteryHealth.setText("电池过热");
-        } else if (health == BatteryManager.BATTERY_HEALTH_COLD) {
-            tvBatteryHealth.setText("电池过冷");
-        } else {
-            tvBatteryHealth.setText("电池出现未知问题");
-        }
-        pbBattery.setProgress(level);
-    }
 }

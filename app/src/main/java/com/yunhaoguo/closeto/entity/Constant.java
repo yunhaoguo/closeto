@@ -40,4 +40,9 @@ public class Constant {
 
     //壁纸接口 接口失效
     //public static final String WALLPAPER_URL = "http://open.lovebizhi.com/baidu_rom.php?width=720&height=1280&type=1";
+
+    //电量
+    public static String BATTERY_T;
+    //温度
+    public static int BATTERY_TEMP = 0;
 }

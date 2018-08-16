@@ -67,19 +67,21 @@
                 android:text="文件管理"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_system_info"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal">
             <ImageView
+                android:paddingTop="4dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/item_home_bottom_nav_select"/>
+                android:src="@drawable/system"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="电影"/>
+                android:text="系统信息"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
