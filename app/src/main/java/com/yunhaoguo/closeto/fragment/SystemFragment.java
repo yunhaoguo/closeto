@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yunhaoguo.closeto.R;
+import com.yunhaoguo.closeto.ui.FileBrowseActivity;
 import com.yunhaoguo.closeto.ui.ScreenCheckActivity;
 
 /*
@@ -32,6 +33,7 @@ import com.yunhaoguo.closeto.ui.ScreenCheckActivity;
 public class SystemFragment extends Fragment implements View.OnClickListener {
 
     private LinearLayout llScreenCheck;
+    private LinearLayout llFileManage;
 
     private BatteryInfoReceiver receiver;
 
@@ -55,6 +57,9 @@ public class SystemFragment extends Fragment implements View.OnClickListener {
 
         llScreenCheck = view.findViewById(R.id.ll_screen_check);
         llScreenCheck.setOnClickListener(this);
+
+        llFileManage = view.findViewById(R.id.ll_file_manage);
+        llFileManage.setOnClickListener(this);
     }
 
     @Override
@@ -73,12 +78,16 @@ public class SystemFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.ll_screen_check:
-                Intent intent = new Intent(getActivity(), ScreenCheckActivity.class);
-                startActivity(intent);
+                intent.setClass(getActivity(), ScreenCheckActivity.class);
+                break;
+            case R.id.ll_file_manage:
+                intent.setClass(getActivity(), FileBrowseActivity.class);
                 break;
         }
+        startActivity(intent);
     }
 
     class BatteryInfoReceiver extends BroadcastReceiver {

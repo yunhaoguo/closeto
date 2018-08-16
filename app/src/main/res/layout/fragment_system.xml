@@ -44,13 +44,14 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/item_home_bottom_nav_select"/>
+                android:src="@drawable/screencheck"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="屏幕检测"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_file_manage"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -59,11 +60,11 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/item_home_bottom_nav_select"/>
+                android:src="@drawable/directory"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="音乐"/>
+                android:text="文件管理"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"

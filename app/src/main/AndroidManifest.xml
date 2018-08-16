@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BATTERY_STATS" />
 
+    <!--读写权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -48,6 +51,7 @@
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.AppInfoActivity" />
         <activity android:name=".ui.ScreenCheckActivity" />
+        <activity android:name=".ui.FileBrowseActivity"></activity>
     </application>
 
 </manifest>
