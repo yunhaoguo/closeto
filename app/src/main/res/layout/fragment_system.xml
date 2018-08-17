@@ -5,27 +5,68 @@
     android:paddingLeft="5dp"
     android:paddingRight="5dp">
 
-    <ProgressBar
-        android:layout_marginTop="5dp"
-        android:id="@+id/pb_system_battery"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_marginTop="5dp"
-        android:id="@+id/tv_system_battery_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_marginTop="5dp"
-        android:id="@+id/tv_system_battery_health"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <LinearLayout
+        android:paddingTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="bottom">
+        <View
+            android:id="@+id/v_rest_space"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:layout_height="100dp" />
+        <View
+            android:id="@+id/v_used_space"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:layout_height="100dp" />
+        <View
+            android:id="@+id/v_total_space"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+        <TextView
 
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="剩余空间"/>
+        <TextView
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="已使用空间"/>
+        <TextView
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="总空间"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_cache_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="缓存清理"/>
     </LinearLayout>
 
     <!--底部导航栏-->
@@ -83,21 +124,7 @@
                 android:layout_height="wrap_content"
                 android:text="系统信息"/>
         </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/item_home_bottom_nav_select"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的"/>
-        </LinearLayout>
-    </LinearLayout>
 
+        </LinearLayout>
 </LinearLayout>
+

@@ -8,14 +8,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yunhaoguo.closeto.R;
+import com.yunhaoguo.closeto.manager.CacheCleanManager;
 import com.yunhaoguo.closeto.ui.FileBrowseActivity;
 import com.yunhaoguo.closeto.ui.ScreenCheckActivity;
 import com.yunhaoguo.closeto.ui.SystemInfoActivity;
+import com.yunhaoguo.closeto.utils.FileUtils;
 
 /*
  * 项目名:     CloseTo
@@ -27,30 +30,32 @@ import com.yunhaoguo.closeto.ui.SystemInfoActivity;
  */
 
 
-public class SystemFragment extends Fragment implements View.OnClickListener {
+public class SystemFragment extends Fragment implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     private LinearLayout llScreenCheck;
     private LinearLayout llFileManage;
     private LinearLayout llSystemInfo;
 
+    private View vTotalSpace;
+    private View vRestSpace;
+    private View vUsedSpace;
 
-    private ProgressBar pbBattery;
-    private TextView tvBatteryInfo;
-    private TextView tvBatteryHealth;
+    private View rootView;
+
+    private Button btnCleanCache;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_system, container, false);
+        rootView = view;
         initView(view);
         return view;
     }
 
     private void initView(View view) {
-        pbBattery = view.findViewById(R.id.pb_system_battery);
-        pbBattery.setMax(100);
 
-        tvBatteryInfo = view.findViewById(R.id.tv_system_battery_info);
-        tvBatteryHealth = view.findViewById(R.id.tv_system_battery_health);
+
 
         llScreenCheck = view.findViewById(R.id.ll_screen_check);
         llScreenCheck.setOnClickListener(this);
@@ -60,6 +65,31 @@ public class SystemFragment extends Fragment implements View.OnClickListener {
 
         llSystemInfo = view.findViewById(R.id.ll_system_info);
         llSystemInfo.setOnClickListener(this);
+
+        vRestSpace = view.findViewById(R.id.v_rest_space);
+        vTotalSpace = view.findViewById(R.id.v_total_space);
+        vUsedSpace = view.findViewById(R.id.v_used_space);
+
+        btnCleanCache = view.findViewById(R.id.btn_cache_clean);
+        btnCleanCache.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Toast.makeText(getActivity(), "缓存" + CacheCleanManager.getTotalCacheSize(getActivity()), Toast.LENGTH_SHORT).show();
+                    CacheCleanManager.clearAllCache(getActivity());
+                    Toast.makeText(getActivity(), "缓存" + CacheCleanManager.getTotalCacheSize(getActivity()), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        ViewTreeObserver observer = view.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(this);
+
+
+
     }
 
     @Override
@@ -89,6 +119,17 @@ public class SystemFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onGlobalLayout() {
+        long restSpace = FileUtils.getSDSize(1);
+        long totalSpace = FileUtils.getSDSize(0);
 
-
+        LinearLayout.LayoutParams pRest = (LinearLayout.LayoutParams) vRestSpace.getLayoutParams();
+        pRest.height = (int) (vTotalSpace.getHeight() * restSpace / totalSpace);
+        vRestSpace.setLayoutParams(pRest);
+        LinearLayout.LayoutParams pUsed = (LinearLayout.LayoutParams) vUsedSpace.getLayoutParams();
+        pUsed.height = (int) (vTotalSpace.getHeight() * (totalSpace - restSpace) / totalSpace);
+        vUsedSpace.setLayoutParams(pUsed);
+        rootView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+    }
 }
